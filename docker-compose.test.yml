@@ -1,0 +1,6 @@
+sut:
+  build: .
+  command: /cre/tests/proxy-test.sh
+  volumes:
+    - ./tests:/cre/tests
+
