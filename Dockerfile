@@ -4,20 +4,22 @@
 # https://github.com/tamboraorg/docker/creProxy
 # (adapted from https://github.com/jwilder/nginx-proxy )
 
-FROM tamboraorg/crenginx:0.2020
+FROM tamboraorg/crenginx:latest
 MAINTAINER Michael Kahle <michael.kahle@yahoo.de>
 
-ARG BUILD_YEAR=2012
+ARG BUILD_YEAR=2018
 ARG BUILD_MONTH=0
+ARG BUILD_TAG=latest
 
 ENV CERTBOT_VERSION 0.31.0
 
 LABEL Name="Proxy for CRE" \
+      CRE=$CRE_VERSION \ 
       Year=$BUILD_YEAR \
       Month=$BUILD_MONTH \
       Version=$CERTBOT_VERSION \
       OS="Ubuntu:$UBUNTU_VERSION" \
-      Build_=$CRE_VERSION 
+      Build_=$BUILD_TAG 
 
 # Fix issue due to server_names_hash_bucket_size
 # see also proxy.tmpl -  https://github.com/certbot/certbot/issues/5199
