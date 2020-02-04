@@ -28,9 +28,11 @@ if [ $doesExist -gt 0 ]; then
   if [ $isInvalid -eq 0 ]; then
     remainingDays=$(echo "$certInfo" | grep "Expiry Date" | sed -e 's/.*VALID: \(.*\) days)/\1/' )
     if [ $remainingDays -lt 45 ]; then
+      # only update one domain per day
       if [ $RANDOM -gt 31000 ]; then
         certbot renew --noninteractive --nginx --force-renewal --agree-tos --domains {{ $host }}
-        # only update one domain per day
+        #Adapt nginx - sometimes not working for multiple domains
+        certbot -n --nginx --domains {{ $host }}  
         exit 0 
       fi
     fi

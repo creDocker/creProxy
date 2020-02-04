@@ -58,7 +58,8 @@ if [ $isInvalid -eq 0 ]; then
 else
   certbot --noninteractive --nginx --force-renewal --agree-tos -m admin@{{ $CurrentDomain }} --domains {{ $host }}
 fi
-
+# Adapt nginx - sometimes not working for multiple domains
+certbot -n --nginx --domains {{ $host }}  
 
 {{end}}
 
