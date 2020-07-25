@@ -66,15 +66,13 @@ server {
 {{ range $subdomain, $containers := groupByMulti $ "Env.CRE_SUBDOMAIN" "," }}
 
 {{ $subdomain := trim $subdomain }}
-{{ if eq $subdomain '' }}
-  {{ $host := $CurrentDomain }}
-{{ else }}
-  {{ $host := (printf "%s.%s" $subdomain $CurrentDomain) }}
-{{ end }}
+{{ $host := (when (eq $subdomain "") $CurrentDomain (printf "%s.%s" $subdomain $CurrentDomain)) }}
+
 
 # {{ $host }}
   
-upstream {{ $host }} {
+  upstream {{ $host }} 
+  {
 
 
 {{ range $container := $containers }}
