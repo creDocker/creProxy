@@ -1,6 +1,6 @@
 ### creProxy
-Nginx-Proxy to forward different subdomains to their assigned containers and ensure a secure connection.
-Uses open-ssl and letsencrypt
+Web-Proxy to forward different subdomains to their assigned containers and ensure a secure connection.
+Uses [nginx](https://nginx.org/), [open-ssl](https://www.openssl.org/) and [letsencrypt](https://letsencrypt.org/)
 
 ##  Available Versions
  * 2016.0
@@ -33,5 +33,9 @@ Uses open-ssl and letsencrypt
  * CRE_DOMAIN: example.com
  * CRE_EMPTY_SUBDOMAIN: www
  * CRE_DEVELOPMENT: dev  - Development mode: Uses localhost 
+
+## Dependencies
+
+ * [creGlue](https://github.com/creDocker/creGlue) 
 
 
