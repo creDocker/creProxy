@@ -4,7 +4,7 @@
 # https://github.com/tamboraorg/docker/creProxy
 # (adapted from https://github.com/jwilder/nginx-proxy )
 
-FROM tamboraorg/crenginx:latest
+FROM tamboraorg/crenginx:2018.0
 MAINTAINER Michael Kahle <michael.kahle@yahoo.de>
 
 ARG BUILD_YEAR=2018
