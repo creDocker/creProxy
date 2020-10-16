@@ -56,6 +56,17 @@ server {
 	return 503;
 }
 
+{{ if $CurrentContainer.Env.CRE_EMPTY_SUBDOMAIN }}
+  {{ $emptyhost := (printf "%s.%s" $CurrentContainer.Env.CRE_EMPTY_SUBDOMAIN $CurrentDomain) }}
+# Forward empty subdomain i.e. example.org to www.example.org (http only)
+server {
+	server_name {{ $CurrentDomain }};
+	listen 80;
+	access_log /var/log/nginx/access.log vhost;
+	return 301 https://$emptyhost$request_uri;
+}
+{{ end }}
+
 {{ range $subdomain, $containers := groupByMulti $ "Env.CRE_SUBDOMAIN" "," }}
 
 {{ $subdomain := trim $subdomain }}
@@ -64,6 +75,7 @@ server {
 # {{ $host }}
 
 upstream {{ $host }} {
+
 
 
 {{ range $container := $containers }}
