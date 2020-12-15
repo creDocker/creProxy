@@ -36,7 +36,7 @@ RUN sed -i 's/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 1
 # https://certbot.eff.org/docs/using.html#certbot-command-line-options
 # https://certbot.eff.org
 # RUN apt install -y snapd ## is installed on Ubuntu
-RUN snap install core && snap refresh core
+# RUN snap install core && snap refresh core
 RUN snap install --classic certbot
 RUN ln -s /snap/bin/certbot /usr/bin/certbot
 RUN ln -s /snap/bin/certbot /usr/local/bin/certbot-auto ## compatibility only
