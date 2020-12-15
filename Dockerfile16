@@ -24,16 +24,29 @@ LABEL Name="Proxy for CRE" \
 RUN sed -i 's/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 128/' /etc/nginx/nginx.conf && \
     sed -i 's/# server_names_hash_bucket_size/server_names_hash_bucket_size/' /etc/nginx/nginx.conf
 
-RUN add-apt-repository ppa:certbot/certbot; apt-get update; apt-get install -y python-certbot-nginx
-RUN wget https://dl.eff.org/certbot-auto && \
-    mv certbot-auto /usr/local/bin/ && \
-    chmod 755 /usr/local/bin/certbot-auto && \
-    /usr/local/bin/certbot-auto --noninteractive --install-only && \
-    /usr/local/bin/certbot-auto --noninteractive --version  
+## "Your system is not supported by certbot-auto anymore"
+#RUN add-apt-repository ppa:certbot/certbot; apt-get update; apt-get install -y python-certbot-nginx
+#RUN wget https://dl.eff.org/certbot-auto && \
+#    mv certbot-auto /usr/local/bin/ && \
+#    chmod 755 /usr/local/bin/certbot-auto && \
+#    /usr/local/bin/certbot-auto --noninteractive --install-only && \
+#    /usr/local/bin/certbot-auto --noninteractive --version 
+
+
+# https://certbot.eff.org/docs/using.html#certbot-command-line-options
+# https://certbot.eff.org
+RUN apt install -y snapd && \
+    snap install core && \
+    snap refresh core
+RUN snap install --classic certbot
+RUN ln -s /snap/bin/certbot /usr/bin/certbot
+RUN ln -s /snap/bin/certbot /usr/local/bin/certbot-auto ## compatibility only
+ 
 
 RUN mkdir -p /cre && touch /cre/versions.txt && \
     echo "$(date +'%F %R') \t creProxy \t " >> /cre/versions.txt && \
-    echo "$(date +'%F %R') \t  $(/usr/local/bin/certbot-auto --noninteractive --version 2>&1)" >> /cre/versions.txt
+#    echo "$(date +'%F %R') \t  $(/usr/local/bin/certbot-auto --noninteractive --version 2>&1)" >> /cre/versions.txt
+    echo "$(date +'%F %R') \t  $(/usr/bin/certbot --noninteractive --version 2>&1)" >> /cre/versions.txt
 
 # /usr/local/bin/certbot-auto --no-self-upgrade ; 
 # certbot --noninteractive --nginx --agree-tos -m mail@domain.tld --domains domain.tld
