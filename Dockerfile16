@@ -33,7 +33,7 @@ RUN sed -i 's/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 1
 #    /usr/local/bin/certbot-auto --noninteractive --version 
 
 
-RUN apt-get install -y certbot -t stretch-backports
+RUN apt-get install -y certbot 
 RUN certbot --noninteractive --version
 
 # https://certbot.eff.org/docs/using.html#certbot-command-line-options
@@ -42,8 +42,12 @@ RUN certbot --noninteractive --version
 RUN  apt-get update && \
   apt-get -y upgrade && \
   apt-get install -y snapd dbus
+
 RUN snap version
 RUN systemctl start snapd.service 
+RUN systemctl restart snapd
+RUN snap version
+
 # RUN snap install core && snap refresh core
 RUN snap install --classic certbot
 RUN ln -s /snap/bin/certbot /usr/bin/certbot
