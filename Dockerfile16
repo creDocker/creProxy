@@ -24,6 +24,8 @@ LABEL Name="Proxy for CRE" \
 RUN sed -i 's/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 128/' /etc/nginx/nginx.conf && \
     sed -i 's/# server_names_hash_bucket_size/server_names_hash_bucket_size/' /etc/nginx/nginx.conf
 
+RUN apt-get update; apt-get install -y python3-certbot-nginx
+
 ## "Your system is not supported by certbot-auto anymore"
 #RUN add-apt-repository ppa:certbot/certbot; apt-get update; apt-get install -y python-certbot-nginx
 #RUN wget https://dl.eff.org/certbot-auto && \
