@@ -47,15 +47,15 @@ RUN  apt-get update && \
   apt-get -y upgrade && \
   apt-get install -y snapd dbus
 
-RUN snap version
-RUN systemctl start snapd.service 
-RUN systemctl restart snapd
-RUN snap version
+#RUN snap version
+#RUN systemctl start snapd.service 
+#RUN systemctl restart snapd
+#RUN snap version
 
 # RUN snap install core && snap refresh core
-RUN snap install --classic certbot
-RUN ln -s /snap/bin/certbot /usr/bin/certbot
-RUN ln -s /snap/bin/certbot /usr/local/bin/certbot-auto ## compatibility only
+#RUN snap install --classic certbot
+#RUN ln -s /snap/bin/certbot /usr/bin/certbot
+#RUN ln -s /snap/bin/certbot /usr/local/bin/certbot-auto ## compatibility only
  
 
 RUN mkdir -p /cre && touch /cre/versions.txt && \
