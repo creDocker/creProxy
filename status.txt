@@ -5,3 +5,9 @@ Todo:
 * maybe optionally use cloudflare
 * Timing & Container restart -> config, certificates, etc.
 
+
+* log access: 
+ * https://goaccess.io/get-started
+ * https://forums.unraid.net/topic/103977-view-nginx-proxy-manager-access-logs-in-a-beautiful-dashboard-with-goaccess/
+ 
+
