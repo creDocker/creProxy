@@ -70,7 +70,7 @@ server {
 	server_name {{ $CurrentDomain }};
 	listen 80;
 	access_log /var/log/nginx/access.log vhost;
-	return 301 https://$emptyhost$request_uri;
+	return 301 https://{{ $emptyhost }}$request_uri;
 }
 {{ end }}
 
