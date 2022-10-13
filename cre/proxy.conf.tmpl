@@ -72,6 +72,40 @@ server {
 	access_log /var/log/nginx/access.log vhost;
 	return 301 https://{{ $emptyhost }}$request_uri;
 }
+server {
+	server_name {{ $CurrentDomain }};
+	listen 443 ssl http2 ;
+	access_log /var/log/nginx/access.log vhost;
+
+        {{ $network_tag := or (first (groupByKeys $containers "Env.NETWORK_ACCESS")) "external" }}
+	{{ if eq $network_tag "internal" }}
+	# Only allow traffic from internal clients - TODO: use later for localhost
+	include /cre/network_internal.conf;
+	{{ end }}
+
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+	ssl_ciphers 'ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:!DSS';
+	ssl_prefer_server_ciphers on;
+	ssl_session_timeout 5m;
+	ssl_session_cache shared:SSL:50m;
+	ssl_session_tickets off;
+
+{{ if $CurrentContainer.Env.CRE_DEVELOPMENT }}
+        # only for real certificates - disable for the moment ...
+	# add_header Strict-Transport-Security "max-age=0";
+{{ else }}
+        add_header Strict-Transport-Security "max-age=31536000";
+{{ end }}
+
+        # openssl certificates // certbot will change these lines later
+        ssl_certificate {{ printf "/etc/letsencrypt/openssl/%s.cert.pem" $CurrentDomain }};    # openssl
+        ssl_certificate_key {{ printf "/etc/letsencrypt/openssl/%s.key.pem" $CurrentDomain }}; # openssl
+
+        # openssl dhparam
+        ssl_dhparam /etc/letsencrypt/openssl/dhparam.pem; # openssl
+
+	return 301 https://{{ $emptyhost }}$request_uri;
+}
 {{ end }}
 
 {{ range $subdomain, $containers := groupByMulti $ "Env.CRE_SUBDOMAIN" "," }}
@@ -148,7 +182,7 @@ server {
 
 {{ if $CurrentContainer.Env.CRE_DEVELOPMENT }}
         # only for real certificates - disable for the moment ...
-	# add_header Strict-Transport-Security "max-age=31536000";
+	# add_header Strict-Transport-Security "max-age=0";
 {{ else }}
         add_header Strict-Transport-Security "max-age=31536000";
 {{ end }}
