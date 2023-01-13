@@ -9,5 +9,16 @@ Todo:
 * log access: 
  * https://goaccess.io/get-started
  * https://forums.unraid.net/topic/103977-view-nginx-proxy-manager-access-logs-in-a-beautiful-dashboard-with-goaccess/
- 
+ * https://geekflare.com/de/monitor-analyze-access-logs-goaccess/
+ * https://mailfud.org/geoip-legacy/
+  * /var/log/nginx/access.log
+  * /var/log/nginx/php.access.log
+  * goaccess /var/log/nginx/access.log -o report.csv --log-format=COMBINED 
+  * goaccess /var/log/nginx/access.log -o report.html --anonymize-ip --log-format=COMBINED
+  * goaccess /var/log/nginx/access.log -o report.json --json-pretty-print --log-format=COMBINED
+
+* logrotate?
+ * is installed -> ok
+ * https://www.learn2torials.com/a/how-to-rotate-nginx-logs
+ * /etc/logrotate.conf  'su root syslog' -> 'su root adm'  
 
