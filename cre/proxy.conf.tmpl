@@ -66,6 +66,7 @@ server {
 {{ if $CurrentContainer.Env.CRE_EMPTY_SUBDOMAIN }}
   {{ $emptyhost := (printf "%s.%s" $CurrentContainer.Env.CRE_EMPTY_SUBDOMAIN $CurrentDomain) }}
 # Forward empty subdomain i.e. example.org to www.example.org (http only)
+
 server {
 	server_name {{ $CurrentDomain }};
 	listen 80;
@@ -103,6 +104,15 @@ server {
 
         # openssl dhparam
         ssl_dhparam /etc/letsencrypt/openssl/dhparam.pem; # openssl
+
+        location = /proxy.html {
+            allow all;
+            expires 1d;
+            alias /cre/www/proxy.html;
+            log_not_found off;
+            access_log off;
+            # try_files $uri $uri/ =404;
+        }
 
 	return 301 https://{{ $emptyhost }}$request_uri;
 }
