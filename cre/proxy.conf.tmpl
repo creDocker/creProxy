@@ -197,10 +197,12 @@ server {
         ssl_dhparam /etc/letsencrypt/openssl/dhparam.pem; # openssl
 
 	## include /etc/nginx/vhost.d/default;
-	location / {
-                proxy_pass http://{{$host}};
-	}
-        location = /proxy/ {
+
+##	location / {
+##                proxy_pass http://{{$host}};
+##	}
+
+        location /proxy/ {
             allow all;
             expires 1d;
             #alias /cre/www/proxy.html;
