@@ -105,18 +105,8 @@ server {
         # openssl dhparam
         ssl_dhparam /etc/letsencrypt/openssl/dhparam.pem; # openssl
 
-        location = /proxy {
-            allow all;
-            expires 1d;
-            #alias /cre/www/proxy.html;
-            root /cre/www;
-            #log_not_found off;
-            #access_log off;
-            try_files $uri $uri/ =404;
-        }
-        location = / {
-	   return 301 https://{{ $emptyhost }}$request_uri;
-        } 
+        return 301 https://{{ $emptyhost }}$request_uri;
+
 }
 {{ end }}
 
@@ -207,6 +197,16 @@ server {
         ssl_dhparam /etc/letsencrypt/openssl/dhparam.pem; # openssl
 
 	## include /etc/nginx/vhost.d/default;
+
+        location = /proxy {
+            allow all;
+            expires 1d;
+            #alias /cre/www/proxy.html;
+            root /cre/www;
+            #log_not_found off;
+            #access_log off;
+            try_files $uri $uri/ =404;
+        }
 
 	location / {
                 proxy_pass http://{{$host}};
