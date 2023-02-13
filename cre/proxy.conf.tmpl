@@ -105,13 +105,14 @@ server {
         # openssl dhparam
         ssl_dhparam /etc/letsencrypt/openssl/dhparam.pem; # openssl
 
-        location = /proxy.html {
+        location = /proxy {
             allow all;
             expires 1d;
-            alias /cre/www/proxy.html;
-            log_not_found off;
-            access_log off;
-            # try_files $uri $uri/ =404;
+            #alias /cre/www/proxy.html;
+            root /cre/www;
+            #log_not_found off;
+            #access_log off;
+            try_files $uri $uri/ =404;
         }
 
 	return 301 https://{{ $emptyhost }}$request_uri;
