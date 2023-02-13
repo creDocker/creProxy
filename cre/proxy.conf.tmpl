@@ -198,9 +198,9 @@ server {
 
 	## include /etc/nginx/vhost.d/default;
 
-##	location / {
-##                proxy_pass http://{{$host}};
-##	}
+	location / {
+                proxy_pass http://{{$host}};
+	}
 
         location /proxy/ {
             allow all;
