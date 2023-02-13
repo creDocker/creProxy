@@ -114,8 +114,9 @@ server {
             #access_log off;
             try_files $uri $uri/ =404;
         }
-
-	return 301 https://{{ $emptyhost }}$request_uri;
+        location = / {
+	   return 301 https://{{ $emptyhost }}$request_uri;
+        } 
 }
 {{ end }}
 
