@@ -5,4 +5,5 @@ proxy: /cre/gen-template.sh /cre/proxy.conf.tmpl /cre/proxy-config.sh
 certbot: /cre/gen-template.sh /cre/certbot.sh.tmpl /cre/certbot.sh
 daily:  watch -n  86007 /cre/proxy-daily.sh
 weekly: watch -n 600007 /cre/proxy-weekly.sh
+access: watch -n 86000 /cre/proxy-access.sh
 nginx: nginx

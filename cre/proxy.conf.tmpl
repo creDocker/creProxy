@@ -201,7 +201,7 @@ server {
 	location / {
                 proxy_pass http://{{$host}};
 	}
-
+        ## serve this subfolder locally 
         location /proxy/ {
             allow all;
             expires 1d;
@@ -211,7 +211,6 @@ server {
             #access_log off;
             #try_files $uri $uri/ =404;
         }
-
 
 }
 
