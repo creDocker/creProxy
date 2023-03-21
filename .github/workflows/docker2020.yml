@@ -34,12 +34,12 @@ jobs:
         with:
           file: ./Dockerfile20
           push: true
-          tags: tamboraorg/creproxy:check20 
+          tags: credocker/creproxy:check20 
 
       -
         name: Test
         run: |
-          docker run tamboraorg/creproxy:check20 /cre/proxy-test.sh   
+          docker run credocker/creproxy:check20 /cre/proxy-test.sh   
 
       -
         name: Build and push
@@ -48,6 +48,6 @@ jobs:
         with:
           file: ./Dockerfile20
           push: true
-          tags: tamboraorg/creproxy:2020.0, tamboraorg/creproxy:latest 
+          tags: credocker/creproxy:2020.0, credocker/creproxy:latest 
       
 

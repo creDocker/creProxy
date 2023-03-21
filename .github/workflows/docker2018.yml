@@ -34,12 +34,12 @@ jobs:
         with:
           file: ./Dockerfile18
           push: true
-          tags: tamboraorg/creproxy:check18
+          tags: credocker/creproxy:check18
 
       -
         name: Test
         run: |
-          docker run tamboraorg/creproxy:check18 /cre/proxy-test.sh  
+          docker run credocker/creproxy:check18 /cre/proxy-test.sh  
       -
         name: Build and push
         id: docker_push
@@ -47,5 +47,5 @@ jobs:
         with:
           file: ./Dockerfile18
           push: true
-          tags: tamboraorg/creproxy:2018.0 
+          tags: credocker/creproxy:2018.0 
 
