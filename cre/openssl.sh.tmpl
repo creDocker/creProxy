@@ -1,6 +1,6 @@
 #!/bin/sh 
 sleep 0.05
-echo "Run openssl"
+echo "Run openssl START"
 
 # Current Container Name : {{ $CurrentContainer.Name }}
 if ! [ -e /etc/letsencrypt/openssl ]
@@ -37,4 +37,4 @@ openssl req -batch -config /cre/openssl.cfg -new -x509 -sha256 -newkey rsa:2048 
 
 ## Todo: Create script-file for adding lines to /etc/hosts, i.e. 127.0.0.1    www.localhost.tambora.org
 ## or/and add html file for localhost to show subdomains and manual for editing etc/hosts
-
+echo "Run openssl FINISH"

@@ -1,6 +1,6 @@
 #!/bin/sh 
-sleep 3
-echo "Run certbot"
+sleep 5
+echo "Run certbot START"
 
 until [ $(pgrep nginx | wc -l)  > 0 ]
 do
@@ -72,3 +72,4 @@ certbot -n --nginx --domains {{ $host }}
 
 #cp config file back
 cp -f /etc/nginx/conf.d/default.conf /cre/proxy.conf
+echo "Run certbot FINISH"
