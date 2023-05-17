@@ -1,4 +1,5 @@
 #!/bin/sh 
+echo "Run proxy weekly"
 
 ## renew certbot
 certbot renew --noninteractive --nginx --agree-tos

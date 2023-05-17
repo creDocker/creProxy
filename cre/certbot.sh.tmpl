@@ -1,5 +1,6 @@
 #!/bin/sh 
 sleep 3
+echo "Run certbot"
 
 until [ $(pgrep nginx | wc -l)  > 0 ]
 do
@@ -68,3 +69,6 @@ certbot -n --nginx --domains {{ $host }}
 
 # Finally reload nginx
 #nginx -s reload
+
+#cp config file back
+cp -f /etc/nginx/conf.d/default.conf /cre/proxy.conf
