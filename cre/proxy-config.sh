@@ -3,6 +3,7 @@
 sleep 0.25
 if [ /cre/proxy.conf -nt /etc/nginx/conf.d/default.conf ]
 then
+   cp -f /cre/deny.conf /etc/nginx/conf.d/deny.conf
    cp -f /cre/proxy.conf /etc/nginx/conf.d/default.conf
    echo "copy newer proxy.conf"
    sleep 0.25

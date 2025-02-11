@@ -81,12 +81,14 @@ server {
 server {
 	server_name {{ $CurrentDomain }};
 	listen 80;
+        include /etc/nginx/conf.d/deny.conf;
 	access_log /var/log/nginx/access.log vhost;
 	return 301 https://{{ $emptyhost }}$request_uri;
 }
 server {
 	server_name {{ $CurrentDomain }};
 	listen 443 ssl http2 ;
+        include /etc/nginx/conf.d/deny.conf;
 	access_log /var/log/nginx/access.log vhost;
 
         {{ $network_tag := or $CurrentContainer.Env.NETWORK_ACCESS "external" }}
@@ -222,6 +224,7 @@ server {
             #access_log off;
             #try_files $uri $uri/ =404;
         }
+        ## may serve robots.txt locally as well. 
 
 }
 
