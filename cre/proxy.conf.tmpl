@@ -16,7 +16,7 @@ map $http_x_forwarded_port $proxy_x_forwarded_port {
 
 geo $user_group {
     default        req_standard;
-    10.4.191.0/8  req_free;
+    10.4.191.0/24  req_free;
     69.176.86.0/23 req_blocked;
     69.176.88.0/22 req_blocked;
     207.46.13.160  req_limited;
@@ -29,6 +29,9 @@ map $user_group $limit_rate {
     req_blocked 1k;
     req_limited 10k; 
 }
+
+limit_zone myzone $binary_remote_addr 10m;
+
 
 limit_req_zone $binary_remote_addr zone=req_standard:10m rate=5r/s;
 limit_req_zone "" zone=req_free:1m rate=30r/s;
@@ -103,8 +106,9 @@ server {
 	server_name {{ $CurrentDomain }};
 	listen 80;
         include /etc/nginx/conf.d/deny.conf;
-        limit_req zone=$user_group;
+        limit_req zone=$user_group burst=10;
         limit_rate $limit_rate; 
+        limit_conn myzone 2;
 	access_log /var/log/nginx/access.log vhost;
 	return 301 https://{{ $emptyhost }}$request_uri;
 }
@@ -112,8 +116,9 @@ server {
 	server_name {{ $CurrentDomain }};
 	listen 443 ssl http2 ;
         include /etc/nginx/conf.d/deny.conf;
-        limit_req zone=$user_group;
+        limit_req zone=$user_group burst=10;
         limit_rate $limit_rate;
+        limit_conn myzone 2;
 	access_log /var/log/nginx/access.log vhost;
 
         {{ $network_tag := or $CurrentContainer.Env.NETWORK_ACCESS "external" }}
