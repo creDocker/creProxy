@@ -50,7 +50,7 @@ limit_req_zone "" zone=req_free:1m rate=30r/s;
 limit_req_zone $binary_remote_addr zone=req_blocked:1m rate=1r/m;
 limit_req_zone $binary_remote_addr zone=req_limited:1m rate=3r/m;
 
-limit_req_zone $binary_remote_addr zone=req_all:$max_mem rate=$req_rate;
+limit_req_zone $binary_remote_addr zone=req_all:10m rate=$req_rate;
 
 ## top-level http config for websocket headers
 ## If Upgrade is defined, Connection = upgrade
