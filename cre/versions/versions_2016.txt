@@ -9,11 +9,4 @@ creBuild 	 2025.08
  creProxy 	 
   certbot 0.31.0
   fail2ban-server Fail2Ban v0.9.3
-
 Copyright (c) 2004-2008 Cyril Jaquier, 2008- Fail2Ban Contributors
-Copyright of modifications held by their respective authors.
-Licensed under the GNU General Public License v2 (GPL).
-
-Written by Cyril Jaquier <cyril.jaquier@fail2ban.org>.
-Many contributions by Yaroslav O. Halchenko <debian@onerussian.com>.
-  fail2ban-client ERROR  Failed to access socket path: /var/run/fail2ban/fail2ban.sock. Is fail2ban running?
