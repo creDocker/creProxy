@@ -26,6 +26,8 @@ LABEL Name="Proxy for CRE" \
 RUN sed -i 's/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 128/' /etc/nginx/nginx.conf && \
     sed -i 's/# server_names_hash_bucket_size/server_names_hash_bucket_size/' /etc/nginx/nginx.conf
 
+# https://stackoverflow.com/questions/76554745/certbot-cannot-import-name-appengine-from-urllib3-contrib
+RUN pip3 uninstall urllib3
 RUN apt-get update; apt-get install -y python3-certbot-nginx certbot
 RUN apt-get install -y fail2ban
 
