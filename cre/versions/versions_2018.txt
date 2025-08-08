@@ -12,4 +12,3 @@ creBuild 	 2025.08
  creProxy 	 
   certbot 0.27.0
   fail2ban-server Fail2Ban v0.10.2
-Copyright (c) 2004-2008 Cyril Jaquier, 2008- Fail2Ban Contributors
