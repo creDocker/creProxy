@@ -29,10 +29,13 @@ RUN sed -i 's/# server_names_hash_bucket_size 64/server_names_hash_bucket_size 1
 RUN apt-get update; apt-get install -y python3-certbot-nginx certbot
 RUN apt-get install -y fail2ban
 
+RUN service --status-all
+
+
 RUN mkdir -p /cre && touch /cre/versions.txt && \
     echo "$(date +'%F %R') \t creProxy \t " >> /cre/versions.txt && \
     echo "$(date +'%F %R') \t  $(certbot --noninteractive --version 2>&1)" >> /cre/versions.txt && \
-    echo "$(date +'%F %R') \t  fail2ban $(systemctl start fail2ban; fail2ban-client version)" >> /cre/versions.txt
+    echo "$(date +'%F %R') \t  fail2ban $(service fail2ban start; fail2ban-client version)" >> /cre/versions.txt
 
  
 COPY cre/proxy.conf /etc/nginx/conf.d/default.conf
