@@ -11,3 +11,4 @@ creBuild 	 2025.08
   GoAccess - 1.3.
  creProxy 	 
   certbot 0.40.0
+ fail2ban 
