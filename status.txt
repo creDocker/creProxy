@@ -22,3 +22,11 @@ Todo:
  * https://www.learn2torials.com/a/how-to-rotate-nginx-logs
  * /etc/logrotate.conf  'su root syslog' -> 'su root adm'  
 
+
+# fail2ban
+https://bornoe.org/blog/2023/09/basic-fail2ban-commands/
+https://www.digitalocean.com/community/tutorials/how-to-protect-an-nginx-server-with-fail2ban-on-ubuntu-20-04
+https://homelabtopia.com/nginx-proxy-manager-fail2ban/
+https://de.wikipedia.org/wiki/Fail2ban#:~:text=Fail2ban%20(sinngem%C3%A4%C3%9F%20%E2%80%9EFehlschlag%20f%C3%BChrt%20zum,iptables%20unter%20Linux).
+https://github.com/fail2ban/fail2ban
+
