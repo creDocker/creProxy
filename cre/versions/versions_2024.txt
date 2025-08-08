@@ -13,4 +13,4 @@ creBuild 	 2025.08
   GoAccess - 1.8.1.
  creProxy 	 
   certbot 2.9.0
- fail2ban 
+  fail2ban 2025-08-08 08:21:25,408 fail2ban                [13]: ERROR   Failed to access socket path: /var/run/fail2ban/fail2ban.sock. Is fail2ban running?
